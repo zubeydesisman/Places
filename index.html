@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <title>Places You've Been</title>
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Places You've Been</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <hr>
+          <h2>Add a place:</h2>
+          <form id="new-place">
+            <div class="form-group">
+              <label for="new-location">location</label>
+              <input type="text"  class="form-control" id="new-location">
+            </div>
+            <div class="form-group">
+              <label for="new-landmark">landmark</label>
+              <input type="text"  class="form-control" id="new-landmark">
+            </div>
+            <div class="form-group">
+              <label for="new-date">date</label>
+              <input type="text"  class="form-control" id="new-date">
+            </div>
+            <button type="submit" class="btn-primary">Add</button>
+          </form>
+          <hr>
+          <h2>Places:</h2>
+          <ul id="places">
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <div id="show-places">
+            <p>Places location:<span class="location"></span></p>
+            <p>Landmark:<span class="landmark"></span></p>
+            <p>visit date: <span class="date"></span></p>
+            <div id="buttons">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
