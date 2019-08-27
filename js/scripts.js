@@ -1,12 +1,12 @@
-// Business Logic for AddressBook ---------
+// Business Logic for Places ---------
 function Places() {
-  this.places = [],
+  this.visitedplaces = [],
   this.currentId = 0
 }
 
-Places.prototype.addPlaces = function(place) {
+Places.prototype.addVisitedPlace = function(place) {
   place.id = this.assignId();
-  this.places.push(place);
+  this.visitedplaces.push(place);
 }
 
 Places.prototype.assignId = function() {
@@ -14,83 +14,82 @@ Places.prototype.assignId = function() {
   return this.currentId;
 }
 
-Places.prototype.findPlace = function(id) {
-  for (var i=0; i< this.places.length; i++) {
-    if (this.places[i]) {
-      if (this.places[i].id == id) {
-        return this.places[i];
+Places.prototype.findVisitedPlace = function(id) {
+  for (var i=0; i< this.visitedplaces.length; i++) {
+    if (this.visitedplaces[i]) {
+      if (this.visitedplaces[i].id == id) {
+        return this.visitedplaces[i];
       }
     }
   };
   return false;
 }
 
- Places.prototype.deleteplace = function(id) {
-    for (var i=0; i< this.places.length; i++) {
-      if (this.places[i]) {
-        if (this.places[i].id == id) {
-          delete this.places[i];
-          return true;
-        }
+Places.prototype.deleteVisitedPlace = function(id) {
+  for (var i=0; i< this.visitedplaces.length; i++) {
+    if (this.visitedplaces[i]) {
+      if (this.visitedplaces[i].id == id) {
+        delete this.visitedplaces[i];
+        return true;
       }
-    };
-    return false;
-  }
-
-  // Business Logic for Places ---------
-  function Place(location, landmark, date) {
-    this.location = location,
-    this.landmark = landmark,
-    this.date= date
-  }
-
-  // User Interface Logic ---------
-  var places = new Places();
-
-  function displayPlaceDetails(placestoToDisplay) {
-    var placesList = $("ul#places");
-    var htmlForPlaceInfo = "";
-    console.log(placesList);
-    placesToDisplay.places.forEach(function(place) {
-      htmlForPlaceInfo += "<li id=" + place.id + ">" + place.location + " " + place.landmark + "</li>";
-    });
-    placesList.html(htmlForPlaceInfo);
+    }
   };
+  return false;
+}
 
-  function showPlace(placeId) {
-    var place = places.findPlace(placeId);
-    $("#show-places").show();
-    $(".location").html(place.location);
-    $(".lasndmark").html(place.landmark);
-    $(".date").html(place.date);
-    var buttons = $("#buttons");
-    buttons.empty();
-    buttons.append("<button class='deleteButton' id=" + place.id + ">Delete</button>");
-  }
+// Business Logic for Contacts ---------
+function VisitedPlace(location,landmark,date) {
+  this.location = location,
+  this.landmark = landmark,
+  this.date = date
+}
 
-  function attachPlaceListeners() {
-    $("ul#places").on("click", "li", function() {
-      showPlace(this.id);
-    });
-    $("#buttons").on("click", ".deleteButton", function() {
-      places.deleteplace(this.id);
-      $("#show-places").hide();
-      displayPlaceDetails(place);
-    });
-  };
+// User Interface Logic ---------
+var place = new Places();
 
-  $(document).ready(function() {
-    attachPlaceListeners();
-    $("form#new-place").submit(function(event) {
-      event.preventDefault();
-      var inputtedLocation = $("input#new-location").val();
-      var inputtedLandmark = $("input#new-landmark").val();
-      var inputtedDate = $("input#new-date").val();
-      $("input#new-location").val("");
-      $("input#new-landmark").val("");
-      $("input#new-date").val("");
-      var newPlace = new Place(inputtedLocation, inputtedLandmark, inputtedDate);
-      places.addPlaces(newPlace);
-      displayPlaceDetails(places);
-    })
+function displayVisitedPlaceDetails(placeToDisplay) {
+  var placesList = $("ul#places");
+  var htmlForVisitedPlaceInfo = "";
+  placeToDisplay.visitedplaces.forEach(function(place) {
+  htmlForVisitedPlaceInfo += "<li id=" + place.id + ">" + place.location + " " + place.landmark + "</li>";
+  });
+  placesList.html(htmlForVisitedPlaceInfo);
+};
+
+function showVisitedPlace(placeId) {
+  var showplace = place.findVisitedPlace(placeId);
+  $("#show-places").show();
+  $(".location").html(showplace.location);
+  $(".landmark").html(showplace.landmark);
+  $(".date").html(showplace.date);
+  var buttons = $("#buttons");
+  buttons.empty();
+  buttons.append("<button class='deleteButton' id=" + place.id + ">Delete</button>");
+}
+
+function attachVisitedPlaceListeners() {
+  $("ul#places").on("click", "li", function() {
+    showVisitedPlace(this.id);
+  });
+  $("#buttons").on("click", ".deleteButton", function() {
+    place.deleteVisitedPlace(this.id);
+    $("#show-places").hide();
+    displayVisitedPlaceDetails(place);
+  });
+};
+
+$(document).ready(function() {
+  attachVisitedPlaceListeners();
+  $("form#new-place").submit(function(event) {
+    event.preventDefault();
+    var inputtedLocation = $("input#new-location").val();
+    var inputtedLandmark= $("input#new-landmark").val();
+    var inputtedDate = $("input#new-date").val();
+    $("input#new-location").val("");
+    $("input#new-landmark").val("");
+    $("input#new-date").val("");
+    var newVisitedPlace = new VisitedPlace(inputtedLocation, inputtedLandmark, inputtedDate);
+    place.addVisitedPlace(newVisitedPlace);
+    displayVisitedPlaceDetails(place);
   })
+})
